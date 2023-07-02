@@ -9,7 +9,7 @@ namespace WaterJugASP
             var handler = new WaterJugHandler();
 
             app.MapGet("/waterjug/status", handler.HandleGet);
-            app.MapPost("/waterjug", handler.HandleGet);
+            app.MapPost("/waterjug", handler.HandlePost);
         }
     }
 }

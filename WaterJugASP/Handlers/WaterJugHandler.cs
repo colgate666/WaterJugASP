@@ -26,7 +26,7 @@ namespace WaterJugASP.Handlers
 
             if (result == null)
             {
-                return Results.Ok(new { Message = "No solution" });
+                return Results.Ok(new { Message = "No solution." });
             }
 
             return Results.Ok(result);
