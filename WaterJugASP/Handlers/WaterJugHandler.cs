@@ -1,4 +1,5 @@
-﻿using WaterJugASP.Models;
+﻿using FluentValidation;
+using WaterJugASP.Models;
 using WaterJugASP.Utils;
 
 namespace WaterJugASP.Handlers
@@ -10,11 +11,12 @@ namespace WaterJugASP.Handlers
         /// </summary>
         /// <param name="input">Values for X, Y and Z to be used in the water jug problem</param>
         /// <returns>The solution, if there's one</returns>
-        public IResult HandlePost(WaterJugModel input)
+        public async Task<IResult> HandlePost(IValidator<WaterJugModel> validator, WaterJugModel input)
         {
-            if (input.X <= 0 || input.Y <= 0 || input.Z <= 0)
+            var inputValidation = await validator.ValidateAsync(input);
+            if (!inputValidation.IsValid)
             {
-                return Results.BadRequest(new { Message = "Invalid request body" });
+                return Results.ValidationProblem(inputValidation.ToDictionary());
             }
 
             if (!WaterJugSolver.CanSolve(input))

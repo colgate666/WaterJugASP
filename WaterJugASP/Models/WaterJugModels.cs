@@ -1,4 +1,6 @@
-﻿namespace WaterJugASP.Models
+﻿using FluentValidation;
+
+namespace WaterJugASP.Models
 {
     public class WaterJugModel
     {
@@ -16,5 +18,15 @@
         /// The target
         /// </summary>
         public int Z { get; set; }
+    }
+
+    public class WaterJugModelValidator : AbstractValidator<WaterJugModel>
+    {
+        public WaterJugModelValidator()
+        {
+            RuleFor(wj => wj.X).NotEmpty().GreaterThanOrEqualTo(1);
+            RuleFor(wj => wj.Y).NotEmpty().GreaterThanOrEqualTo(1);
+            RuleFor(wj => wj.Z).NotEmpty().GreaterThanOrEqualTo(1);
+        }
     }
 }
